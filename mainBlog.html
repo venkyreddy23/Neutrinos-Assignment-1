@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+
+</head>
+
+<body onload="loading()">
+    <div class="container">
+        <div class="row">
+            <div class="form-group col-sm-6 mt-4">
+                <h1 style="color: rgb(83, 25, 190);">Blog Assignment</h1>
+            </div>
+            <div class="col-sm-6 mt-4">
+                <div style="float: right;">
+                    <a href="createBlog.html"><button type="button" class="btn btn-outline-success"
+                            onclick="createIdForButtons()">Create</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="sample"></div>
+        </div>
+
+          
+
+<!--         <form>
+            <div class="row">
+                <div class="form-group col-sm-6 mt-4">
+                    <input type="text" readonly class="form-control" placeholder="Enter Title" id="title1">
+                </div>
+                <div class="col-sm-6 mt-4">
+                    <button style='font-size:14px;float: right;' onclick="editable();">Edit<i
+                            class='fas fa-edit'></i></button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <textarea type="text" readonly class="form-control mt-3" rows="5" id="blog1"></textarea>
+            </div>
+        </form>
+
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-6 mt-4">
+                    <input type="text" class="form-control" readonly placeholder="Enter title" id="title2">
+                </div>
+                <div class="col-sm-6 mt-4">
+                    <button style='font-size:14px;float: right;'>Edit<i class='fas fa-edit'></i></button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <textarea type="text" readonly class="form-control mt-3" rows="5" id="blog2"></textarea>
+            </div>
+        </form> -->
+
+    </div>
+
+</body>
+
+<script>
+
+ /*    var tt = localStorage.getItem("textValue");
+    var bb = localStorage.getItem("textContent");
+    document.getElementById("title1").value = tt;
+    document.getElementById("blog1").value = bb;
+
+    /* edit operation */
+  /*   function editable() {
+        document.getElementById("title1").contentEditable = true;
+        document.getElementById("blog1").contentEditable = true;
+    } */ 
+
+    function createIdForButtons(){
+  localStorage.setItem("buttonId","save");
+}
+
+
+  var localData = JSON.parse(localStorage.getItem("blogContent"));
+
+  function loading(){
+
+    for(i=0; i<=localData.length; i++){
+
+      var dd = `
+      
+      <div class="container" style="border:1px solid black;margin-top:10px;">
+       <button class="btn-small" style="float:right;"><i class="fa fa-edit" onclick="editblog(${i})">edit</i></button>
+      <div class="dynamicBlock">
+        <h2>${ localData[i].n}</h2>
+        <p>${ localData[i].m }</p>
+      </div>
+       
+      </div>
+      
+      `;
+       document.getElementById("sample").innerHTML+= dd;
+    }
+
+  }
+  function editblog(i){
+    //alert(i);
+      window.location.href = "createBlog.html";
+      localStorage.setItem("index", i);
+      localStorage.setItem("buttonId","edit");
+  }
+  
+
+</script>
+
+</html>

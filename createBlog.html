@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Blog</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+        integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
+
+<body onload="listOf();">
+    <div class="container">
+        <h1 style="color: green;">Create Blog</h1>
+
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-6 mt-4">
+                    <label for="title"></label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title" id="title">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="content"></label>
+                <textarea class="form-control mt-3" rows="5" name="content" id="Content"></textarea>
+            </div>
+            <div>
+                <button type="button" class="btn btn-outline-danger" onclick="clearField()">Back</button>
+                <button type="submit" class="btn btn-outline-success" id="saveBtn" onclick="save()">Save</button>
+                <button type="submit" class="btn btn-outline-primary" id="updateBtn" onclick="update()">Update</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+<script>
+   function clearField() {
+      document.getElementById("title").value = "";
+      document.getElementById("Content").value = "";
+      window.location.href = "mainBlog.html";
+    }
+
+    var globId;
+    function listOf() {
+
+      var buttonIdForHiddden = localStorage.getItem("buttonId");
+      if (buttonIdForHiddden === "save") {
+        document.getElementById("title").value = "";
+        document.getElementById("Content").value = "";
+        document.getElementById("updateBtn").style.display = 'none';
+      }
+      else {
+        document.getElementById("saveBtn").style.display = "none";
+        var index = localStorage.getItem("index");
+        globId = index;
+        var dataToUpdate = JSON.parse(localStorage.getItem("blogContent"));
+        document.getElementById("title").value = dataToUpdate[index].n;
+        document.getElementById("Content").value = dataToUpdate[index].m;
+      }
+
+    }
+
+    function save() {
+      var check = JSON.parse(localStorage.getItem("blogContent"));
+      var title1 = document.getElementById("title").value;
+      var content1 = document.getElementById("Content").value;
+
+      var arr =
+      {
+        "n": title1,
+        "m": content1
+      }
+      if (check === null) {
+        var check = []
+        check.push(arr);
+        localStorage.setItem("blogContent", JSON.stringify(check));
+      }
+      else {
+        check.push(arr);
+        localStorage.setItem("blogContent", JSON.stringify(check));
+      }
+      alert("Successfully Data has Stored");
+      document.getElementById("title").value = "";
+      document.getElementById("Content").value = "";
+      window.location.href = "mainBlog.html";
+    }
+
+    function update() {
+
+      var title1 = document.getElementById("title").value;
+      var content1 = document.getElementById("Content").value;
+      var updateData = JSON.parse(localStorage.getItem("blogContent"));
+      var updatedRecord = updateData;
+      updatedRecord[globId].n = title1;
+      updatedRecord[globId].m = content1;
+      localStorage.setItem("blogContent", JSON.stringify(updatedRecord));
+      document.getElementById("title").value = "";
+      document.getElementById("Content").value = "";
+      window.location.href = "mainBlog.html";
+    }
+
+
+
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script>
+    /*   function addBlog(){
+         var title1 = document.getElementById("title").value;
+         var blogSubject = document.getElementById("blogContent").value;
+         localStorage.setItem("textValue",title1);
+         localStorage.setItem("textContent",blogSubject);
+     } 
+      */
+
+</script>
+
+</html>
